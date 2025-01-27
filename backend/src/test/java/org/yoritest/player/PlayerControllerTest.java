@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -37,7 +38,8 @@ class PlayerControllerTest {
 
     @Test
     void calls_player_service_to_save_new_player() throws Exception {
-        PlayerRequest playerRequest = new PlayerRequest("John Doe", "john@example.com");
+        PlayerRequest playerRequest = new PlayerRequest("John Doe");
+        when(playerService.savePlayer(playerRequest)).thenReturn(new Player(1L, "John Doe", ""));
 
         mockMvc.perform(post("/api/v1/players")
                         .content(objectMapper.writeValueAsString(playerRequest))
@@ -57,7 +59,7 @@ class PlayerControllerTest {
 
     @Test
     void calls_player_service_to_update_player() throws Exception {
-        PlayerRequest playerRequest = new PlayerRequest("John Doe", "test@exsample.com");
+        PlayerRequest playerRequest = new PlayerRequest("John Doe");
         mockMvc.perform(put("/api/v1/players/1")
                         .content(objectMapper.writeValueAsString(playerRequest))
                         .contentType("application/json"))

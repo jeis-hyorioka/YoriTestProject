@@ -29,7 +29,7 @@ class PlayerServiceTest {
 
         when(playerRepositoryMock.save(player)).thenReturn(player);
 
-        playerService.savePlayer(new PlayerRequest(name, email));
+        playerService.savePlayer(new PlayerRequest(name));
 
         ArgumentCaptor<Player> playerArgumentCaptor = ArgumentCaptor.forClass(Player.class);
         verify(playerRepositoryMock).save(playerArgumentCaptor.capture());
@@ -61,7 +61,7 @@ class PlayerServiceTest {
                 .name(name)
                 .email(email).build();
         when(playerRepositoryMock.findById(id)).thenReturn(java.util.Optional.of(player));
-        playerService.updatePlayer(id, new PlayerRequest(name, email));
+        playerService.updatePlayer(id, new PlayerRequest(name));
         verify(playerRepositoryMock).save(player);
     }
 }

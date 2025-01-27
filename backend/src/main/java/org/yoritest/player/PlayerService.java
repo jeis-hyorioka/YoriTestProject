@@ -22,7 +22,6 @@ public class PlayerService {
 
         Player player = Player.builder()
                 .name(playerRequest.name())
-                .email(playerRequest.email())
                 .build();
 
         return playerRepository.save(player);
@@ -35,7 +34,6 @@ public class PlayerService {
     public void updatePlayer(Long id, PlayerRequest playerRequest) {
         Player player = playerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Player not found"));
         player.setName(playerRequest.name());
-        player.setEmail(playerRequest.email());
         playerRepository.save(player);
     }
 }

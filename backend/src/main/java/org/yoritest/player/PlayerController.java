@@ -14,8 +14,9 @@ public class PlayerController {
     private final PlayerService playerService;
 
     @PostMapping
-    public ResponseEntity<Void> createPlayer(@RequestBody PlayerRequest playerRequest) {
-        playerService.savePlayer(playerRequest);
+    public ResponseEntity<Void> createPlayer(@RequestBody String name) {
+        Player player = playerService.savePlayer(new PlayerRequest(name));
+        System.out.println("Player created: " + player);
         return ResponseEntity.ok().build();
     }
 
